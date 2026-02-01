@@ -1,0 +1,25 @@
+name: RimWorld Price Watcher
+
+on:
+  schedule:
+    # Esto corre todos los días a las 15:00 UTC (12:00 mediodía en Argentina)
+    - cron: '0 15 * * *'
+  workflow_dispatch: # Esto te permite ejecutarlo manualmente cuando quieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar librerías
+        run: pip install -r requirements.txt
+
+      - name: Correr el script de RimWorld
+        run: python rimworld_checker.py
